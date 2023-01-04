@@ -41,7 +41,7 @@ public class XmasCard {
     /** Additional variation to tree height and width */
     private static final int treeWobble = 100;
     /** Song to play. */
-    private static String musicFile = "/Jingle_Bells_full_Ab.mid";
+    private static String musicFile = "xmas-card--Game\\src\\main\\resources\\Jingle_Bells_full_Ab.mid";
 
     public static void main(String[] args) {
 
