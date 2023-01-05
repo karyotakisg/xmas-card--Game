@@ -87,5 +87,8 @@ public class XmasCard {
 	    } catch (InterruptedException e) {
 	    }
         }
+        Pacman pac = new Pacman();
+        d.add(pac);
     }
+    
 }
