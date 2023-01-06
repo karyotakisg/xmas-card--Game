@@ -16,7 +16,14 @@
 
 package gr.aueb.xmascard;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Rectangle;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  * The Christmas Card program main class.
@@ -30,65 +37,88 @@ import java.awt.Rectangle;
  */
 public class XmasCard {
 
-    /** Number of trees */
-    private static final int numTrees = 30;
-    /** Number of snowflakes */
-    private static final int numSnowFlakes = 1500;
-    /** Minimum tree width. */
-    private static final int treeWidth = 30;
-    /** Minimum tree height. */
-    private static final int treeHeight = 100;
-    /** Additional variation to tree height and width */
-    private static final int treeWobble = 100;
-    /** Song to play. */
-    private static String musicFile = "xmas-card--Game\\src\\main\\resources\\Jingle_Bells_full_Ab.mid";
+	/** Number of trees */
+	private static final int numTrees = 30;
+	/** Number of snowflakes */
+	private static final int numSnowFlakes = 1500;
+	/** Minimum tree width. */
+	private static final int treeWidth = 30;
+	/** Minimum tree height. */
+	private static final int treeHeight = 100;
+	/** Additional variation to tree height and width */
+	private static final int treeWobble = 100;
+	/** Song to play. */
+	// private static String musicFile =
+	// "xmas-card--Game\\src\\main\\resources\\Jingle_Bells_full_Ab.mid";
+	private static String musicFile = "C:\\Users\\zimpr\\OneDrive\\Desktop\\xmas-card--Game\\xmas-card--Game\\src\\main\\resources\\Jingle_Bells_full_Ab.mid";
 
-    public static void main(String[] args) {
+	static Integer number = 0;
 
-        // Create a window and the canvas to draw onto.
-        DrawPanel d = new DrawPanel();
+	public static JLabel num = new JLabel(number.toString());
 
-        // Create randomly-positioned trees.
-        for (int i = 0; i < numTrees; i++) {
-            Rectangle treeBox = new Rectangle(
-		(int)(Math.random() * DrawPanel.WIDTH),
-                (int)(Math.random() * DrawPanel.HEIGHT),
-                treeWidth + (int)(Math.random() * treeWobble),
-                treeHeight + (int)(Math.random() * treeWobble));
+	public static void main(String[] args) {
 
-            Tree t = new Tree(d.getCanvas(), treeBox);
-            d.addDrawObject(t);
-        }
+		// Create a window and the canvas to draw onto.
+		DrawPanel d = new DrawPanel();
 
-	// Start playing music
-	MidiPlayer m = new MidiPlayer(musicFile);
+		JLabel score = new JLabel("Number of snowflakes you have dodged: ");
+		score.setBounds(3, 10, 30, 50);
+		score.setFont(new Font("Arial", Font.BOLD, 15));
+		score.setForeground(Color.WHITE);
+		d.add(score);
 
-        // Create the snowflakes.
-        for (int i = 0; i < numSnowFlakes; i++) {
-	    switch (i % 6) {
-	    case 0:
-	    case 1:
-                d.addDrawObject(new PointSnowFlake(d.getCanvas(), '.', 15));
-		break;
-	    case 2:
-                d.addDrawObject(new PointSnowFlake(d.getCanvas(), 'o', 10));
-		break;
-	    case 3:
-                d.addDrawObject(new PointSnowFlake(d.getCanvas(), '*', 5));
-		break;
-	    case 4:
-	    case 5:
-                d.addDrawObject(new SlashSnowFlake(d.getCanvas()));
-		break;
-	    }
-	    try {
-		// Allow existing snowflakes to fall a bit, before adding more
-		Thread.sleep(100);
-	    } catch (InterruptedException e) {
-	    }
-        }
-        Pacman pac = new Pacman();
-        d.add(pac);
-    }
-    
+		num.setBounds(20, 10, 30, 50);
+		num.setFont(new Font("Arial", Font.BOLD, 15));
+		num.setForeground(Color.WHITE);
+		d.add(num);
+
+		// Create randomly-positioned trees.
+		for (int i = 0; i < numTrees; i++) {
+			Rectangle treeBox = new Rectangle((int) (Math.random() * DrawPanel.WIDTH),
+					(int) (Math.random() * DrawPanel.HEIGHT), treeWidth + (int) (Math.random() * treeWobble),
+					treeHeight + (int) (Math.random() * treeWobble));
+
+			Tree t = new Tree(d.getCanvas(), treeBox);
+			d.addDrawObject(t);
+		}
+
+		int sum = 10;//
+
+		// Start playing music
+		MidiPlayer m = new MidiPlayer(musicFile);
+
+		// Create the snowflakes.
+		for (int i = 0; i < numSnowFlakes; i++) {
+
+			sum += 5;
+
+			d.addDrawObject(new SnowFlake(d.getCanvas(), sum));
+
+			if (i <= 25) {
+				try {
+					// Allow existing snow flakes to fall a bit, before adding more
+					Thread.sleep(8000);
+				} catch (InterruptedException e) {
+
+				}
+			} else if (i <= 30) {
+				try {
+					// Increase the production of snow flakes to make the game more challenging
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+
+				}
+			} else {
+				try {
+					// Increase the production of snow flakes to make the game more challenging
+					Thread.sleep(600);
+				} catch (InterruptedException e) {
+
+				}
+			}
+		}
+		Pacman pac = new Pacman();
+		d.add(pac);
+	}
+
 }

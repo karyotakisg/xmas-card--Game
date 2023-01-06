@@ -19,6 +19,15 @@ package gr.aueb.xmascard;
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -28,51 +37,85 @@ import javax.swing.JPanel;
  * @author Giorgos Gousios, Diomidis Spinellis
  * @opt nodefillcolor white
  */
-public abstract class SnowFlake extends Drawable {
+public class SnowFlake extends Drawable {
 
-    /** The snowflake's background color. */
-    private static final Color white = new Color(255, 255, 255);
+	/** The snowflake's background color. */
+	private static final Color white = new Color(255, 255, 255);
 
-    /**
-     * The 'x' current coordinate of the snowflake.
-     */
-    protected int coordX;
+	/**
+	 * The 'x' current coordinate of the snowflake.
+	 */
+	protected int coordX;
 
-    /**
-     * The 'y' current coordinate of the snowflake.
-     */
-    protected int coordY;
+	/**
+	 * The 'y' current coordinate of the snowflake.
+	 */
+	protected int coordY;
 
-    /**
-     * The character to be displayed as a snowflake
-     */
-    protected char displayChar;
+	/**
+	 * The character to be displayed as a snowflake
+	 */
 
-    /**
-     * Create a snowflake represented by a point-like character.
-     *
-     * @param panel The panel to draw the object onto
-     */
-    public SnowFlake(JPanel panel) {
-        super(panel);
-        coordX = (int) (bounds.width * Math.random()) + bounds.x;
-        coordY = 0;
-    }
+	/** The wieght of the snowflake. */
+	int weight;
 
-    /**
-     * Draw the snowflake and wrap around.
-     *
-     * @param g The Graphics object on which we will paint
-     */
-    @Override
-    public void draw(Graphics g) {
-        // Go back to the top when hitting the bottom
-        if (coordY >= bounds.width + bounds.y)
-            coordY = 0;
+	int sum;//
 
-        // Draw the character in white
-        g.setColor(white);
-        g.drawString((Character.valueOf(displayChar)).toString(),
-        coordX, coordY);
-    }
+	protected char displayChar;
+
+	/**
+	 * Create a snowflake represented by a filled oval.
+	 *
+	 * @param panel The panel to draw the object onto
+	 * @param w     The snowflake's weight
+	 */
+	public SnowFlake(JPanel panel, int w) {
+		super(panel);
+		coordX = (int) (bounds.width * Math.random()) + bounds.x;
+		coordY = 0;
+		
+		weight = w; // Increase the speed of each snow flake, to make the game more challenging
+	}
+
+	/**
+	 * Draw the snowflake and wrap around.
+	 *
+	 * @param g The Graphics object on which we will paint
+	 */
+
+	Integer increasedSnowFlakeNumber; // Counts the number of snow flakes the player dodges
+
+	@Override
+	public void draw(Graphics g) {
+
+		// Go back to the top when hitting the bottom
+	   // and also increase the number of snow flakes player managed to dodge
+		if (coordY >= bounds.width + bounds.y) { 
+			coordY = 0;
+			increasedSnowFlakeNumber = XmasCard.number++;
+			XmasCard.num.setText(increasedSnowFlakeNumber.toString());
+		}
+
+		// Move the snow flake left and right
+
+		switch (coordY % 3) {
+		case 1:
+			coordX = coordX - 4;
+			break;
+		case 2:
+			coordX = coordX + 4;
+			break;
+		default:
+			break;
+		}
+
+		// Move down, based on the weight
+		coordY += (int) (Math.random() * weight);
+
+		// Draw the oval in white
+		g.setColor(white);
+		g.drawOval(coordX, coordY, 40, 40);
+		g.fillOval(coordX, coordY, 40, 40);
+
+	}
 }
