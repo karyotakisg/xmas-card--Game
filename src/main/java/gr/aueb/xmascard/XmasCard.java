@@ -51,7 +51,7 @@ public class XmasCard {
 	/** Song to play. */
 	// private static String musicFile =
 	// "xmas-card--Game\\src\\main\\resources\\Jingle_Bells_full_Ab.mid";
-	private static String musicFile = "C:\\Users\\zimpr\\OneDrive\\Desktop\\xmas-card--Game\\xmas-card--Game\\src\\main\\resources\\Jingle_Bells_full_Ab.mid";
+	private static String musicFile = "xmas-card--Game\\src\\main\\resources\\Jingle_Bells_full_Ab.mid";
 
 	static Integer number = 0;
 
@@ -61,13 +61,10 @@ public class XmasCard {
 
 		// Create a window and the canvas to draw onto.
 		DrawPanel d = new DrawPanel();
-		JFrame f = new JFrame();
-		//Pacman p = new Pacman();
-		f.setSize(1000,1000);
-		//f.add(p);
-		f.setVisible(true);
+		
+	
 
-		//d.addDrawObject(new Pacman(d.getCanvas()));
+	
 		
 		JLabel score = new JLabel("Number of snowflakes you have dodged: ");
 		score.setBounds(3, 10, 30, 50);
@@ -137,8 +134,7 @@ public class XmasCard {
 			}
 			
 		}
-		//Pacman pac = new Pacman();
-		//d.add(pac);
+		
 	}
 
 }

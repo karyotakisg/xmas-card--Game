@@ -20,24 +20,14 @@ public class Pacman extends Drawable implements KeyListener {
     JPanel p;
     
     public Pacman(JPanel p) {
-      //setSize(1000,1000);
-      //setBackground(Color.BLACK);
-      //setFocusable(true);
+      
     	super(p);
     	this.p = p;
     	x=200;
     	y=200;
     	
       
-      /*while(true){
-        moveBall();
-        p.repaint();
-        try {
-            t.sleep(20);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-      }*/
+   
     }
     
     public int getX() {
@@ -51,7 +41,7 @@ public class Pacman extends Drawable implements KeyListener {
     }
     
     public void draw(Graphics g){
-        //super.paint(g);
+        
     	g.drawOval(x, y, 50, 50);
         g.setColor(Color.yellow);
         g.fillOval(x,y,50,50);
@@ -60,6 +50,24 @@ public class Pacman extends Drawable implements KeyListener {
     public void moveBall(){
         x=x+dx;
         y=y+dy;
+        if(x>980){
+            dx=-4;
+            moveBall();
+        }
+        if(y>720){
+            dy=-4;
+            moveBall();
+        }
+        if(x<20){
+            dx=4;
+            moveBall();
+        }
+        if(y<20){
+            dy=4;
+            moveBall();
+        }
+        
+        
     }
     
    //controls    
@@ -68,22 +76,22 @@ public class Pacman extends Drawable implements KeyListener {
         	int key = e.getKeyCode();
                 if (key == KeyEvent.VK_LEFT) {
                     
-                	dx=-2;
+                	dx=-4;
                     moveBall();
                     p.repaint();
                 } else if (key == KeyEvent.VK_RIGHT) {
                    
-                	dx = 2;
+                	dx = 4;
                     moveBall();
                     p.repaint();
                 } else if (key == KeyEvent.VK_UP) {     
                    
-                	dy = -2;
+                	dy = -4;
                     moveBall();
                     p.repaint();
                 } else if (key == KeyEvent.VK_DOWN) {
                     
-                	dy = 2;
+                	dy = 4;
                     moveBall();
                     p.repaint();
             }
