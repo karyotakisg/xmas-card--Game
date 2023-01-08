@@ -23,6 +23,7 @@ import java.awt.Image;
 import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
@@ -60,7 +61,11 @@ public class XmasCard {
 
 		// Create a window and the canvas to draw onto.
 		DrawPanel d = new DrawPanel();
-
+		JFrame f = new JFrame();
+		Pacman p = new Pacman();
+		f.setSize(1000,1000);
+		f.add(p);
+		f.setVisible(true);
 		JLabel score = new JLabel("Number of snowflakes you have dodged: ");
 		score.setBounds(3, 10, 30, 50);
 		score.setFont(new Font("Arial", Font.BOLD, 15));
