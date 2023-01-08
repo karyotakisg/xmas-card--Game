@@ -62,10 +62,13 @@ public class XmasCard {
 		// Create a window and the canvas to draw onto.
 		DrawPanel d = new DrawPanel();
 		JFrame f = new JFrame();
-		Pacman p = new Pacman();
+		//Pacman p = new Pacman();
 		f.setSize(1000,1000);
-		f.add(p);
+		//f.add(p);
 		f.setVisible(true);
+
+		//d.addDrawObject(new Pacman(d.getCanvas()));
+		
 		JLabel score = new JLabel("Number of snowflakes you have dodged: ");
 		score.setBounds(3, 10, 30, 50);
 		score.setFont(new Font("Arial", Font.BOLD, 15));
@@ -86,6 +89,10 @@ public class XmasCard {
 			Tree t = new Tree(d.getCanvas(), treeBox);
 			d.addDrawObject(t);
 		}
+		
+		Pacman p = new Pacman(d.getCanvas());
+		d.addDrawObject(p);
+		d.addKeyListener(p);
 
 		int sum = 10;//
 
@@ -97,7 +104,9 @@ public class XmasCard {
 
 			sum += 5;
 
-			d.addDrawObject(new SnowFlake(d.getCanvas(), sum));
+			SnowFlake sf = new SnowFlake(d.getCanvas(), sum);
+			
+			d.addDrawObject(sf);
 
 			if (i <= 25) {
 				try {
@@ -121,9 +130,15 @@ public class XmasCard {
 
 				}
 			}
+		
+			Integer increasedSnowFlakeNumber;
+			if (p.getY() < sf.coordY) {
+				sf.inc();
+			}
+			
 		}
-		Pacman pac = new Pacman();
-		d.add(pac);
+		//Pacman pac = new Pacman();
+		//d.add(pac);
 	}
 
 }

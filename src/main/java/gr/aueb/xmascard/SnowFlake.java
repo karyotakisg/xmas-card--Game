@@ -61,8 +61,6 @@ public class SnowFlake extends Drawable {
 
 	int sum;//
 
-	protected char displayChar;
-
 	/**
 	 * Create a snowflake represented by a filled oval.
 	 *
@@ -82,7 +80,7 @@ public class SnowFlake extends Drawable {
 	 *
 	 * @param g The Graphics object on which we will paint
 	 */
-
+	
 	Integer increasedSnowFlakeNumber; // Counts the number of snow flakes the player dodges
 
 	@Override
@@ -92,10 +90,8 @@ public class SnowFlake extends Drawable {
 	   // and also increase the number of snow flakes player managed to dodge
 		if (coordY >= bounds.width + bounds.y) { 
 			coordY = 0;
-			increasedSnowFlakeNumber = XmasCard.number++;
-			XmasCard.num.setText(increasedSnowFlakeNumber.toString());
 		}
-
+		
 		// Move the snow flake left and right
 
 		switch (coordY % 3) {
@@ -118,4 +114,11 @@ public class SnowFlake extends Drawable {
 		g.fillOval(coordX, coordY, 40, 40);
 
 	}
+
+	protected void inc() {
+		
+		increasedSnowFlakeNumber = XmasCard.number++;
+		XmasCard.num.setText(increasedSnowFlakeNumber.toString());
+	}
+
 }
