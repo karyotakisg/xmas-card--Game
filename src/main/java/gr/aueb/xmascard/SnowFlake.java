@@ -120,5 +120,10 @@ public class SnowFlake extends Drawable {
 		increasedSnowFlakeNumber = XmasCard.number++;
 		XmasCard.num.setText(increasedSnowFlakeNumber.toString());
 	}
-
+	public int getCoordY(){
+		return coordY;
+	}
+	public int getCoordX(){
+		return coordX;
+	}
 }

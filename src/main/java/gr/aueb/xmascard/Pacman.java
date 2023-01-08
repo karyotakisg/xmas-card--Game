@@ -67,7 +67,6 @@ public class Pacman extends Drawable implements KeyListener {
             moveBall();
         }
         
-        
     }
     
    //controls    
@@ -105,4 +104,8 @@ public class Pacman extends Drawable implements KeyListener {
             dy=0;
 
         }
+        public void defeat(SnowFlake sf){
+            if (Math.abs(sf.getCoordX()-10)<=10 && Math.abs(sf.getCoordX()-10)<=10);
+        }
+        
 }
