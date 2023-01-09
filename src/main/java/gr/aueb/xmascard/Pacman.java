@@ -19,15 +19,15 @@ public class Pacman extends Drawable implements KeyListener {
     Thread t = new Thread();
     JPanel p;
     
+    SnowFlake sf;
+    
     public Pacman(JPanel p) {
       
     	super(p);
     	this.p = p;
     	x=200;
     	y=200;
-    	
-      
-   
+    	SnowFlake.a(x, y);
     }
     
     public int getX() {
@@ -45,6 +45,7 @@ public class Pacman extends Drawable implements KeyListener {
     	g.drawOval(x, y, 50, 50);
         g.setColor(Color.yellow);
         g.fillOval(x,y,50,50);
+        
     }
     
     public void moveBall(){
@@ -66,7 +67,7 @@ public class Pacman extends Drawable implements KeyListener {
             dy=4;
             moveBall();
         }
-        
+       SnowFlake.a(x,  y); 
     }
     
    //controls    
@@ -103,9 +104,6 @@ public class Pacman extends Drawable implements KeyListener {
             dx=0;
             dy=0;
 
-        }
-        public void defeat(SnowFlake sf){
-            if (Math.abs(sf.getCoordX()-10)<=10 && Math.abs(sf.getCoordX()-10)<=10);
         }
         
 }

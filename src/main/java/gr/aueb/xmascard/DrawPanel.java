@@ -103,13 +103,26 @@ public class DrawPanel extends JFrame implements Runnable {
         setVisible(true);
     }
 
+    Thread t;
+    
     /** Start the execution of the drawing thread. */
     private void initializeThread() {
         if (thread == null) {
             thread = new Thread(this);
             thread.setPriority(Thread.MIN_PRIORITY);
             thread.start();
+            setThread(thread);
         }
+    }
+    
+    public void setThread(Thread t) {
+    	
+    	this.t = t;
+    }
+    
+    public Thread getThread() {
+    	
+    	return t;
     }
 
     /** Add a component to be drawn. */
@@ -122,13 +135,16 @@ public class DrawPanel extends JFrame implements Runnable {
         return new Vector<Drawable>(drawObjects);
     }
 
+    SnowFlake sf;
+    Pacman pac;
+    
     /**
      * The method to be executed by the running thread. Executes the
      * {@link DrawablePanel#repaint()}method periodically.
      */
     public void run() {
         Thread me = Thread.currentThread();
-
+        
         // Allow termination by setting thread to null
         while (thread == me) {
             // tell drawablePanel to repaint its contents

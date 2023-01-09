@@ -57,15 +57,22 @@ public class XmasCard {
 
 	public static JLabel num = new JLabel(number.toString());
 
+	static DrawPanel d;
+	static Pacman p;
+	static JLabel gameOver;
+	
+	
 	public static void main(String[] args) {
 
 		// Create a window and the canvas to draw onto.
-		DrawPanel d = new DrawPanel();
+		d = new DrawPanel();
 		
-	
+		gameOver = new JLabel(" ");
+		gameOver.setFont(new Font("Verdana", Font.BOLD, 25));
+		gameOver.setForeground(Color.RED);
+		gameOver.setBounds(80, 200, 500, 500);
+		d.add(gameOver);
 
-	
-		
 		JLabel score = new JLabel("Number of snowflakes you have dodged: ");
 		score.setBounds(3, 10, 30, 50);
 		score.setFont(new Font("Arial", Font.BOLD, 15));
@@ -86,12 +93,14 @@ public class XmasCard {
 			Tree t = new Tree(d.getCanvas(), treeBox);
 			d.addDrawObject(t);
 		}
-		
-		Pacman p = new Pacman(d.getCanvas());
+
+		p = new Pacman(d.getCanvas());
 		d.addDrawObject(p);
 		d.addKeyListener(p);
 
-		int sum = 10;//
+		SnowFlake sf = null;
+
+		int sum = 25;//
 
 		// Start playing music
 		MidiPlayer m = new MidiPlayer(musicFile);
@@ -101,14 +110,14 @@ public class XmasCard {
 
 			sum += 5;
 
-			SnowFlake sf = new SnowFlake(d.getCanvas(), sum);
-			
+			sf = new SnowFlake(d.getCanvas(), sum);
+
 			d.addDrawObject(sf);
 
 			if (i <= 25) {
 				try {
 					// Allow existing snow flakes to fall a bit, before adding more
-					Thread.sleep(8000);
+					Thread.sleep(6000);
 				} catch (InterruptedException e) {
 
 				}
@@ -127,15 +136,16 @@ public class XmasCard {
 
 				}
 			}
-		
+
 			Integer increasedSnowFlakeNumber;
-			if (p.getY() < sf.coordY) {
-				sf.inc();
-			}
-			
+
 		}
-		
+
 	}
-	
+
+	public static void touched() {
+		d.removeKeyListener(p);
+		gameOver.setText("Game Over");
+	}
 
 }
