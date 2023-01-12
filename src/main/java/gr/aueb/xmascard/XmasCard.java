@@ -17,9 +17,13 @@
 package gr.aueb.xmascard;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.Rectangle;
 
 import javax.swing.ImageIcon;
@@ -60,6 +64,7 @@ public class XmasCard {
 	static DrawPanel d;
 	static Pacman p;
 	static JLabel gameOver;
+	static JLabel score;
 	
 	
 	public static void main(String[] args) {
@@ -67,17 +72,36 @@ public class XmasCard {
 		// Create a window and the canvas to draw onto.
 		d = new DrawPanel();
 		
-		gameOver = new JLabel(" ");
-		gameOver.setFont(new Font("Verdana", Font.BOLD, 25));
-		gameOver.setForeground(Color.RED);
-		gameOver.setBounds(80, 200, 500, 500);
-		d.add(gameOver);
+		d.setLayout(new GridBagLayout());
+		GridBagConstraints scoreConstraints = new GridBagConstraints();
+		scoreConstraints.gridx = 0;
+		scoreConstraints.gridy = 0;
+		scoreConstraints.insets = new Insets(10, 10, 10, 10); // Add some margins
+		scoreConstraints.anchor = GridBagConstraints.NORTHWEST; // align to top-left corner
 
-		JLabel score = new JLabel("Number of snowflakes you have dodged: ");
-		score.setBounds(3, 10, 30, 50);
+		GridBagConstraints gameOverConstraints = new GridBagConstraints();
+		gameOverConstraints.gridx = 0;
+		gameOverConstraints.gridy = 1;
+		gameOverConstraints.gridwidth = GridBagConstraints.REMAINDER; // span the whole row
+		gameOverConstraints.fill = GridBagConstraints.HORIZONTAL; // fill the whole row
+		gameOverConstraints.insets = new Insets(10, 10, 10, 10); // Add some margins
+		gameOverConstraints.anchor = GridBagConstraints.CENTER; // center alignment
+
+
+		gameOver = new JLabel(" ");
+		gameOver.setFont(new Font("Verdana", Font.BOLD, 150));
+		gameOver.setForeground(Color.RED);
+		gameOver.setBounds(10, 200, 1000, 1000);
+		//d.add(gameOver);
+		//d.add(gameOver, constraints);
+		d.add(gameOver, gameOverConstraints);
+
+		score = new JLabel("Score: ");
+		score.setBounds(90, 10, 30, 50);
 		score.setFont(new Font("Arial", Font.BOLD, 15));
 		score.setForeground(Color.WHITE);
 		d.add(score);
+		//d.add(score, scoreConstraints);
 
 		num.setBounds(20, 10, 30, 50);
 		num.setFont(new Font("Arial", Font.BOLD, 15));
@@ -105,6 +129,7 @@ public class XmasCard {
 		// Start playing music
 		MidiPlayer m = new MidiPlayer(musicFile);
 
+		int count = 0;
 		// Create the snowflakes.
 		for (int i = 0; i < numSnowFlakes; i++) {
 
@@ -144,8 +169,11 @@ public class XmasCard {
 	}
 
 	public static void touched() {
+		
 		d.removeKeyListener(p);
 		gameOver.setText("Game Over");
+		score.setText(" ");
+		num.setText(" ");
 	}
 
 }

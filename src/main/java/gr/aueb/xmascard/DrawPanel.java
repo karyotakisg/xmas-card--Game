@@ -16,12 +16,15 @@
 
 package gr.aueb.xmascard;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Vector;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -73,7 +76,7 @@ public class DrawPanel extends JFrame implements Runnable {
 
     /** Initialize the main window. */
     private void initializeGraphics() {
-        // Make our window look nice
+    	// Make our window look nice
         JFrame.setDefaultLookAndFeelDecorated(true);
 
         // Create our drawing canvas
@@ -144,7 +147,7 @@ public class DrawPanel extends JFrame implements Runnable {
      */
     public void run() {
         Thread me = Thread.currentThread();
-        
+
         // Allow termination by setting thread to null
         while (thread == me) {
             // tell drawablePanel to repaint its contents

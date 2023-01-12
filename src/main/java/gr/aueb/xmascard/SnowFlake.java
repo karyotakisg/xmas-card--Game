@@ -71,7 +71,7 @@ public class SnowFlake extends Drawable {
 		super(panel);
 		coordX = (int) (bounds.width * Math.random()) + bounds.x;
 		coordY = 0;
-		
+
 		weight = w; // Increase the speed of each snow flake, to make the game more challenging
 	}
 
@@ -80,34 +80,50 @@ public class SnowFlake extends Drawable {
 	 *
 	 * @param g The Graphics object on which we will paint
 	 */
-	
+
 	Integer increasedSnowFlakeNumber; // Counts the number of snow flakes the player dodges
-	static int x,y;
+	static int x, y;
+
 	public static void a(int a, int b) {
 		x = a;
-		y=b;
+		y = b;
 	}
-	
+
+	static int snowFlakeCount;
+
+	public static void b(int i) {
+
+		snowFlakeCount = i;
+	}
+
+	boolean touched = false;
+
 	@Override
 	public void draw(Graphics g) {
 
-		//System.out.println(p.getY());
+		// System.out.println(p.getY());
 		// Go back to the top when hitting the bottom
-	   // and also increase the number of snow flakes player managed to dodge
-		if (coordY >= bounds.width + bounds.y) { 
+		// and also increase the number of snow flakes player managed to dodge
+		if (coordY >= bounds.width + bounds.y) {
 			coordY = 0;
 		}
-		//System.out.println("pac" + y);
-		//System.out.println("snowflake" + coordY);
+
+		// System.out.println((bounds.width+bounds.y));
+		// System.out.println("pac" + y);
+		// System.out.println("snowflake" + coordY);
+		// System.out.println(i + "i");
+		// System.out.println(snowFlakeCount);
+
+		if (Math.abs(coordX - x) <= 30 && Math.abs(coordY - y) <= 30) {
+			touched = true;
+			XmasCard.touched(); }
 		
-		//if (coordY > y ) {
-			//increasedSnowFlakeNumber = XmasCard.number++;
-			//XmasCard.num.setText(increasedSnowFlakeNumber.toString());
-		//}
-		
-    	if (Math.abs(coordX-x)<=20 && Math.abs(coordY-y)<=20)
-        	XmasCard.touched();
-		
+	    
+		if (coordY == 0 && !touched) {
+			increasedSnowFlakeNumber = ++XmasCard.number;
+			XmasCard.num.setText(increasedSnowFlakeNumber.toString());
+		}
+
 		// Move the snow flake left and right
 
 		switch (coordY % 3) {
@@ -131,15 +147,11 @@ public class SnowFlake extends Drawable {
 
 	}
 
-	/*protected void inc() {
-		
-		increasedSnowFlakeNumber = XmasCard.number++;
-		XmasCard.num.setText(increasedSnowFlakeNumber.toString());
-	}
-	public int getCoordY(){
-		return coordY;
-	}
-	public int getCoordX(){
-		return coordX;
-	} */
+	/*
+	 * protected void inc() {
+	 * 
+	 * increasedSnowFlakeNumber = XmasCard.number++;
+	 * XmasCard.num.setText(increasedSnowFlakeNumber.toString()); } public int
+	 * getCoordY(){ return coordY; } public int getCoordX(){ return coordX; }
+	 */
 }
