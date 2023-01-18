@@ -59,7 +59,7 @@ public class SnowFlake extends Drawable {
 	 */
 	public SnowFlake(JPanel panel, int w) {
 		super(panel);
-		coordX = (int) (bounds.width * Math.random()) + bounds.x;
+		coordX = (int) (bounds.width * Math.random()) + bounds.x; // Snowflake's position before starting to fall
 		coordY = 0;
 
 		weight = w; // Increase the speed of each snow flake, to make the game more challenging
@@ -70,15 +70,14 @@ public class SnowFlake extends Drawable {
 	 *
 	 * @param g The Graphics object on which we will paint
 	 */
-
 	Integer increasedSnowFlakeNumber; // Counts the number of snow flakes that fall
-	
+
 	static int x, y; // Pacman's coordinates
 
 	/**
-	 * The method pacmanCoords(int a, int b) sets main character's coordinates
-	 * in order to compare them with the SnowFlake's coordinates to see if our character 
-	 * has touched any snowflakes.
+	 * The method pacmanCoords(int a, int b) sets main character's coordinates in
+	 * order to compare them with the SnowFlake's coordinates to see if our
+	 * character has touched any snowflakes.
 	 * 
 	 * @param a The pacman's x coordinate
 	 * @param b The pacman's y coordinate
@@ -99,12 +98,12 @@ public class SnowFlake extends Drawable {
 			coordY = 0;
 		}
 
-		if (Math.abs(coordX - x) <= 30 && Math.abs(coordY - y) <= 30) {
+		if (Math.abs(coordX - x) <= 30 && Math.abs(coordY - y) <= 30) { // When a snowflake touches the main character
 			touched = true;
 			XmasCard.touched();
 		}
 
-		if (coordY == 0 && !touched) {
+		if (coordY == 0 && !touched) { // When a new snowflake falls
 			increasedSnowFlakeNumber = ++XmasCard.number;
 			XmasCard.num.setText(increasedSnowFlakeNumber.toString());
 		} else if (coordY == 0 && touched) {
