@@ -17,24 +17,14 @@
 package gr.aueb.xmascard;
 
 import java.awt.Color;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
  * A self-drawable 'snowflake' represented by a character. The move pattern and
  * character to be displayed is determined by subclasses.
  *
- * @author Giorgos Gousios, Diomidis Spinellis
+ * @author Giorgos Gousios, Diomidis Spinellis, Vaggelis Talos
  * @opt nodefillcolor white
  */
 public class SnowFlake extends Drawable {
@@ -81,51 +71,47 @@ public class SnowFlake extends Drawable {
 	 * @param g The Graphics object on which we will paint
 	 */
 
-	Integer increasedSnowFlakeNumber; // Counts the number of snow flakes the player dodges
-	static int x, y;
+	Integer increasedSnowFlakeNumber; // Counts the number of snow flakes that fall
+	
+	static int x, y; // Pacman's coordinates
 
-	public static void a(int a, int b) {
+	/**
+	 * The method pacmanCoords(int a, int b) sets main character's coordinates
+	 * in order to compare them with the SnowFlake's coordinates to see if our character 
+	 * has touched any snowflakes.
+	 * 
+	 * @param a The pacman's x coordinate
+	 * @param b The pacman's y coordinate
+	 */
+	public static void pacmanCoords(int a, int b) {
 		x = a;
 		y = b;
 	}
 
-	static int snowFlakeCount;
-
-	public static void b(int i) {
-
-		snowFlakeCount = i;
-	}
-
-	boolean touched = false;
+	static boolean touched = false; // Turns true if our character touches at least one snowflake
 
 	@Override
 	public void draw(Graphics g) {
 
-		// System.out.println(p.getY());
 		// Go back to the top when hitting the bottom
 		// and also increase the number of snow flakes player managed to dodge
 		if (coordY >= bounds.width + bounds.y) {
 			coordY = 0;
 		}
 
-		// System.out.println((bounds.width+bounds.y));
-		// System.out.println("pac" + y);
-		// System.out.println("snowflake" + coordY);
-		// System.out.println(i + "i");
-		// System.out.println(snowFlakeCount);
-
 		if (Math.abs(coordX - x) <= 30 && Math.abs(coordY - y) <= 30) {
 			touched = true;
-			XmasCard.touched(); }
-		
-	    
+			XmasCard.touched();
+		}
+
 		if (coordY == 0 && !touched) {
 			increasedSnowFlakeNumber = ++XmasCard.number;
 			XmasCard.num.setText(increasedSnowFlakeNumber.toString());
+		} else if (coordY == 0 && touched) {
+			XmasCard.num.setText("Final score: " + increasedSnowFlakeNumber.toString());
 		}
 
 		// Move the snow flake left and right
-
 		switch (coordY % 3) {
 		case 1:
 			coordX = coordX - 4;
@@ -146,12 +132,4 @@ public class SnowFlake extends Drawable {
 		g.fillOval(coordX, coordY, 40, 40);
 
 	}
-
-	/*
-	 * protected void inc() {
-	 * 
-	 * increasedSnowFlakeNumber = XmasCard.number++;
-	 * XmasCard.num.setText(increasedSnowFlakeNumber.toString()); } public int
-	 * getCoordY(){ return coordY; } public int getCoordX(){ return coordX; }
-	 */
 }

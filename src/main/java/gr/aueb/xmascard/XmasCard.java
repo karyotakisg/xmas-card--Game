@@ -17,23 +17,17 @@
 package gr.aueb.xmascard;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Rectangle;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 /**
  * The Christmas Card program main class.
  *
- * @author Giorgos Gousios, Diomidis Spinellis
+ * @author Giorgos Gousios, Diomidis Spinellis, Vaggelis Talos, Giannis Karyotakis
  * @depend - - - gr.aueb.xmascard.DrawPanel
  * @depend - <instantiate> - gr.aueb.xmascard.MidiPlayer
  * @depend - - - gr.aueb.xmascard.Tree
@@ -65,19 +59,13 @@ public class XmasCard {
 	static Pacman p; // The main character of the game
 	static JLabel gameOver; // The message that appears when the player loses
 	static JLabel score; // Score label
-	
-	
+
 	public static void main(String[] args) {
 
 		// Create a window and the canvas to draw onto.
 		d = new DrawPanel();
-		
+
 		d.setLayout(new GridBagLayout()); // Set d layout as GridBagLayout
-		GridBagConstraints scoreConstraints = new GridBagConstraints();
-		scoreConstraints.gridx = 0;
-		scoreConstraints.gridy = 0;
-		scoreConstraints.insets = new Insets(10, 10, 10, 10); // Add some margins
-		scoreConstraints.anchor = GridBagConstraints.NORTHWEST; // align to top-left corner
 
 		GridBagConstraints gameOverConstraints = new GridBagConstraints();
 		gameOverConstraints.gridx = 0;
@@ -86,7 +74,6 @@ public class XmasCard {
 		gameOverConstraints.fill = GridBagConstraints.HORIZONTAL; // fill the whole row
 		gameOverConstraints.insets = new Insets(10, 10, 10, 10); // Add some margins
 		gameOverConstraints.anchor = GridBagConstraints.CENTER; // center alignment
-
 
 		gameOver = new JLabel(" "); // Game Over label does not appear until we lose
 		gameOver.setFont(new Font("Verdana", Font.BOLD, 150));
@@ -116,7 +103,7 @@ public class XmasCard {
 		}
 
 		p = new Pacman(d.getCanvas()); // Create main character
-		d.addDrawObject(p); 
+		d.addDrawObject(p);
 		d.addKeyListener(p); // So we can move it using the keyboard
 
 		SnowFlake sf = null;
@@ -126,7 +113,6 @@ public class XmasCard {
 		// Start playing music
 		MidiPlayer m = new MidiPlayer(musicFile);
 
-		int count = 0;
 		// Create the snowflakes.
 		for (int i = 0; i < numSnowFlakes; i++) {
 
@@ -159,18 +145,20 @@ public class XmasCard {
 				}
 			}
 
-			Integer increasedSnowFlakeNumber;
-
 		}
 
 	}
 
+	/**
+	 * The method touched() sets gameOver label as "Game Over" when the main
+	 * character touches the snowflake and the game is over
+	 * 
+	 */
 	public static void touched() {
-		
+
 		d.removeKeyListener(p);
-		gameOver.setText("Game Over");
+		gameOver.setText("Game Over"); // The text "Game Over" appears on the screen
 		score.setText(" ");
-		num.setText(" ");
 	}
 
 }

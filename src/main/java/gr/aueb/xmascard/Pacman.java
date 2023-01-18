@@ -10,7 +10,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-//public class Pacman extends JPanel implements KeyListener {
 public class Pacman extends Drawable implements KeyListener {
     private int x=0;
     private int y=0;
@@ -27,7 +26,7 @@ public class Pacman extends Drawable implements KeyListener {
     	this.p = p;
     	x=200;
     	y=200;
-    	SnowFlake.a(x, y);
+    	SnowFlake.pacmanCoords(x, y);
     }
     
     public int getX() {
@@ -67,7 +66,7 @@ public class Pacman extends Drawable implements KeyListener {
             dy=4;
             moveBall();
         }
-       SnowFlake.a(x,  y); 
+       SnowFlake.pacmanCoords(x,  y); // Set the new coordinates in the SnowFlake class
     }
     
    //controls    
