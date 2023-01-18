@@ -59,12 +59,12 @@ public class XmasCard {
 
 	static Integer number = 0;
 
-	public static JLabel num = new JLabel(number.toString());
+	public static JLabel num = new JLabel(number.toString()); // The number of the snowflakes that have fallen
 
 	static DrawPanel d;
-	static Pacman p;
-	static JLabel gameOver;
-	static JLabel score;
+	static Pacman p; // The main character of the game
+	static JLabel gameOver; // The message that appears when the player loses
+	static JLabel score; // Score label
 	
 	
 	public static void main(String[] args) {
@@ -72,7 +72,7 @@ public class XmasCard {
 		// Create a window and the canvas to draw onto.
 		d = new DrawPanel();
 		
-		d.setLayout(new GridBagLayout());
+		d.setLayout(new GridBagLayout()); // Set d layout as GridBagLayout
 		GridBagConstraints scoreConstraints = new GridBagConstraints();
 		scoreConstraints.gridx = 0;
 		scoreConstraints.gridy = 0;
@@ -88,25 +88,22 @@ public class XmasCard {
 		gameOverConstraints.anchor = GridBagConstraints.CENTER; // center alignment
 
 
-		gameOver = new JLabel(" ");
+		gameOver = new JLabel(" "); // Game Over label does not appear until we lose
 		gameOver.setFont(new Font("Verdana", Font.BOLD, 150));
 		gameOver.setForeground(Color.RED);
 		gameOver.setBounds(10, 200, 1000, 1000);
-		//d.add(gameOver);
-		//d.add(gameOver, constraints);
 		d.add(gameOver, gameOverConstraints);
 
 		score = new JLabel("Score: ");
 		score.setBounds(90, 10, 30, 50);
 		score.setFont(new Font("Arial", Font.BOLD, 15));
 		score.setForeground(Color.WHITE);
-		d.add(score);
-		//d.add(score, scoreConstraints);
+		d.add(score); // Add "Score" label on the panel
 
 		num.setBounds(20, 10, 30, 50);
 		num.setFont(new Font("Arial", Font.BOLD, 15));
 		num.setForeground(Color.WHITE);
-		d.add(num);
+		d.add(num); // Add the number of snowflakes that have fallen on the panel
 
 		// Create randomly-positioned trees.
 		for (int i = 0; i < numTrees; i++) {
@@ -118,9 +115,9 @@ public class XmasCard {
 			d.addDrawObject(t);
 		}
 
-		p = new Pacman(d.getCanvas());
-		d.addDrawObject(p);
-		d.addKeyListener(p);
+		p = new Pacman(d.getCanvas()); // Create main character
+		d.addDrawObject(p); 
+		d.addKeyListener(p); // So we can move it using the keyboard
 
 		SnowFlake sf = null;
 
