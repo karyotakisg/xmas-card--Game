@@ -106,8 +106,14 @@ public class SnowFlake extends Drawable {
 		if (coordY == 0 && !touched) { // When a new snowflake falls
 			increasedSnowFlakeNumber = ++XmasCard.number;
 			XmasCard.num.setText(increasedSnowFlakeNumber.toString());
-		} else if (coordY == 0 && touched) {
-			XmasCard.num.setText("Final score: " + increasedSnowFlakeNumber.toString());
+		} else if (coordY == 0 && touched) { //waits 2 seconds and the closes the game
+			Thread t = new Thread();
+			try {
+				t.sleep(2000);
+				System.exit(0);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 
 		// Move the snow flake left and right

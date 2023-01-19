@@ -16,10 +16,8 @@
 
 package gr.aueb.xmascard;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.util.Vector;
-
 import javax.swing.JPanel;
 
 

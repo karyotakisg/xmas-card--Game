@@ -1,15 +1,14 @@
 package gr.aueb.xmascard;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
+/**
+ * Pacman class is a sub-class of Drawable the is used to
+ * draw and move the main charachter
+ */
 public class Pacman extends Drawable implements KeyListener {
     private int x=0;
     private int y=0;
@@ -17,9 +16,13 @@ public class Pacman extends Drawable implements KeyListener {
     private int dy=0;
     Thread t = new Thread();
     JPanel p;
-    
+    int c=0; //tracks the last move of the user
     SnowFlake sf;
-    
+    /**
+     * places the charachter is the starting position and creates a 
+     * drawable item
+     * @param p the draw panel that the game is designed
+     */
     public Pacman(JPanel p) {
       
     	super(p);
@@ -38,15 +41,67 @@ public class Pacman extends Drawable implements KeyListener {
     	
     	return y;
     }
-    
+    /** 
+    * creates the yellow ball and draw eyes according to its moves \
+    */
     public void draw(Graphics g){
-        
-    	g.drawOval(x, y, 50, 50);
-        g.setColor(Color.yellow);
-        g.fillOval(x,y,50,50);
-        
+        if (dx==4) {
+    	    g.drawArc(x, y, 50, 50,30,300);
+            g.setColor(Color.yellow);
+            g.fillArc(x, y, 50, 50,30,300);
+            g.setColor(Color.BLACK);
+            g.fillOval(x+15,y+10,10,10);
+        }
+        if (dx==-4) {
+            g.drawArc(x, y, 50, 50,210,300);
+            g.setColor(Color.yellow);
+            g.fillArc(x, y, 50, 50,210,300);
+            g.setColor(Color.BLACK);
+            g.fillOval(x+15,y+10,10,10);
+        }
+        if (dy==-4) {
+            g.setColor(Color.yellow);
+            g.fillArc(x, y, 50, 50,-70,40);
+            g.setColor(Color.BLACK);
+            g.fillOval(x+15,y+10,10,10);
+        } 
+        if (dy==4) {
+            g.setColor(Color.yellow);
+            g.fillArc(x, y, 50, 50,180,-250);
+            g.setColor(Color.BLACK);
+            g.fillOval(x+15,y+10,10,10);
+        }
+        if(dx==0 || dy==0){ // draws the pacman when the user doesnt't press something
+            if(c==0 || c==2) {
+                g.setColor(Color.yellow);
+                g.fillArc(x, y, 50, 50,30,300);
+                g.setColor(Color.BLACK);
+                g.fillOval(x+15,y+10,10,10);
+            }
+            if (c==1) {
+                g.setColor(Color.yellow);
+                g.fillArc(x, y, 50, 50,210,300);
+                g.setColor(Color.BLACK);
+                g.fillOval(x+15,y+10,10,10);  
+            }
+            if(c==3) {
+                g.setColor(Color.yellow);
+                g.fillArc(x, y, 50, 50,100,270);
+                g.setColor(Color.BLACK);
+                g.fillOval(x+15,y+10,10,10); 
+            }
+            if(c==4) {
+                g.setColor(Color.yellow);
+                g.fillArc(x, y, 50, 50,180,-250);
+                g.setColor(Color.BLACK);
+                g.fillOval(x+15,y+10,10,10);
+            }
+        }
     }
-    
+    /**
+     *moves the ball according to the key presses (depends on dx,dy from keyListener)
+     *also, if the user tries to escape the frame it doesn't allow him/her.
+     */
     public void moveBall(){
         x=x+dx;
         y=y+dy;
@@ -78,21 +133,25 @@ public class Pacman extends Drawable implements KeyListener {
                 	dx=-4;
                     moveBall();
                     p.repaint();
+                    c=1;
                 } else if (key == KeyEvent.VK_RIGHT) {
                    
                 	dx = 4;
                     moveBall();
                     p.repaint();
+                    c=2;
                 } else if (key == KeyEvent.VK_UP) {     
                    
                 	dy = -4;
                     moveBall();
                     p.repaint();
+                    c=3;
                 } else if (key == KeyEvent.VK_DOWN) {
                     
                 	dy = 4;
                     moveBall();
                     p.repaint();
+                    c=4;
             }
         }
         @Override

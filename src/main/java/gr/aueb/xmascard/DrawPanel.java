@@ -16,15 +16,12 @@
 
 package gr.aueb.xmascard;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.Vector;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**

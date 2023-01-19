@@ -23,6 +23,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import javax.swing.JLabel;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The Christmas Card program main class.
@@ -49,7 +50,7 @@ public class XmasCard {
 	/** Song to play. */
 	// private static String musicFile =
 	// "xmas-card--Game\\src\\main\\resources\\Jingle_Bells_full_Ab.mid";
-	private static String musicFile = "xmas-card--Game\\src\\main\\resources\\Jingle_Bells_full_Ab.mid";
+	private static String musicFile = "src\\main\\resources\\Jingle_Bells_full_Ab.mid";
 
 	static Integer number = 0;
 
@@ -155,7 +156,6 @@ public class XmasCard {
 	 * 
 	 */
 	public static void touched() {
-
 		d.removeKeyListener(p);
 		gameOver.setText("Game Over"); // The text "Game Over" appears on the screen
 		score.setText(" ");
